@@ -18,7 +18,7 @@ export class LoginPage {
   public data : any ;
   constructor(public navCtrl: NavController, public navParams: NavParams,private authprovider:AuthProvider,private events: Events ) {
     this.data = {
-      email :  '',
+      email : '',
       password: ''
     }
   }
@@ -40,7 +40,7 @@ export class LoginPage {
     this.events.publish('app:setUser', data);
   }
   checkLoginDisable(){
-    if(this.data.username.length == 0 || this.data.password.length == 0){
+    if(this.data.email === '' || this.data.password ===''){
       return false;
     }
     return true;

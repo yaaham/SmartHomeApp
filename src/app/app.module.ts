@@ -8,7 +8,8 @@ import { HomePage } from '../pages/home/home';
 import {LoginPage} from '../pages/login/login'; 
 import {SignUpPage} from '../pages/sign-up/sign-up';
 import {WelcomePage} from '../pages/welcome/welcome';
-
+import{AuthProvider} from '../Providers/AuthentificationProvider/AuthentificationProvider';
+import { HttpModule } from '@angular/http';
 @NgModule({
   declarations: [
     MyApp,
@@ -19,7 +20,8 @@ import {WelcomePage} from '../pages/welcome/welcome';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -32,6 +34,7 @@ import {WelcomePage} from '../pages/welcome/welcome';
   providers: [
     StatusBar,
     SplashScreen,
+    AuthProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
