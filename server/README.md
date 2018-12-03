@@ -1,13 +1,5 @@
-# Sup'Com - SysTel - T-IoT - Node.js Tutorial
-
-This tutorial is intended for `SysTel`'s & `AIM`'s students at `Sup'Com` Engineering School 
-and `IoT`'s students at National Engineering School of Tunis: `ENIT`.
-
-Visit https://medbecha.kaaniche.xyz/blog to learn more about this tutorial. 
-
+# Smart Home Back End 
 ## Usage
-
-mongod --auth --bind_ip 127.0.0.1
 
 Make sure you have mongodb installed into your own machine and running;
 Get the project and run: `npm install`
