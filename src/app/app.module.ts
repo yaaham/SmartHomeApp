@@ -7,12 +7,14 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import {LoginPage} from '../pages/login/login'; 
 import {SignUpPage} from '../pages/sign-up/sign-up';
+import {WelcomePage} from '../pages/welcome/welcome';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     SignUpPage,
+    WelcomePage,
     LoginPage
   ],
   imports: [
@@ -24,6 +26,7 @@ import {SignUpPage} from '../pages/sign-up/sign-up';
     MyApp,
     HomePage,
     SignUpPage,
+    WelcomePage,
     LoginPage
   ],
   providers: [
