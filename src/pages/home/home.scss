@@ -1,3 +1,27 @@
+@import '../../theme/variables.scss';
 page-home {
+    .NavHeader{
+
+        .Header{
+            font-size: 18px; 
+            text-align: center; 
+        }
+    }
+    .MainBody{
+        background-image: url('../../assets/graphique/background.jpg');
+        background-position: center; /* Center the image */
+        background-repeat: no-repeat; /* Do not repeat the image */
+        background-size: cover;
+        .logo{
+            //height: 100px;
+            padding: 5%;
+
+        }
+       
+        .LoginButton{
+            padding-top: 47%;
+        }
+        
+    }
 
 }

@@ -1,6 +1,7 @@
 {
-  "name": "blank",
+  "name": "SmartHomeApp",
   "integrations": {},
   "type": "ionic-angular",
-  "pro_id": "98ae8f12"
+  "pro_id": "98ae8f12",
+  "id": "98ae8f12"
 }

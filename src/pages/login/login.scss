@@ -1,0 +1,33 @@
+@import '../../theme/variables.scss';
+page-login {
+    .MainLogin{
+        background-image: url('../../assets/graphique/background.jpg');
+        background-position: center; /* Center the image */
+        background-repeat: no-repeat; /* Do not repeat the image */
+        background-size: cover;
+        .Login{
+            padding-top: 70%; 
+            position: relative;
+            /*.LoginRow{
+                .la{
+                    .input-text::-moz-placeholder{
+                        color : white;
+                    }
+                }
+            }*/
+            .row {
+                /*.item{
+                    .input-text::-moz-placeholder{
+                        color : white;
+                    }
+                }*/
+                .item-input {
+                background-color: transparent;
+                }
+            }
+        }       
+             
+     }
+}
+
+

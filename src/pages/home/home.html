@@ -1,14 +1,21 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
+  <ion-navbar class = "NavHeader">
+    <ion-title class = "Header">
+      Welcome To Smart Home 
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content padding class="MainBody">
+  <img src="../../assets/graphique/SmartHomeLogo.png" class="logo"/>
+  <ion-grid >
+    <ion-col  class = "LoginButton">
+      <ion-row center text-center>
+          <button ion-button full color="success" (click)="signup()">Sign up</button>
+      </ion-row>
+      <ion-row center text-center>
+        <button ion-button full color="lightText" (click)="login()">Log in</button>
+      </ion-row>
+    </ion-col>
+  </ion-grid>
 </ion-content>
