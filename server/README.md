@@ -6,7 +6,7 @@ Get the project and run: `npm install`
 
 Run `npm start`. It will initialize the server at port 8443.
 
-##Test
+##Test authentification & registration 
 
 POST https://localhost:8443/users
 
