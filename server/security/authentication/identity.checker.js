@@ -4,7 +4,6 @@ const validityTime = require('../../env.config.js').jwtValidityTimeInSeconds;
 
 exports.hasAuthValidFields = (req, res, next) => {
     let errors = [];
-
     if (req.body) {
         if (!req.body.email) {
             errors.push('Missing email field');
@@ -12,7 +11,6 @@ exports.hasAuthValidFields = (req, res, next) => {
         if (!req.body.password) {
             errors.push('Missing password field');
         }
-
         if (errors.length) {
             return res.status(400).send({errors: errors.join(',')});
         } else {
@@ -22,6 +20,7 @@ exports.hasAuthValidFields = (req, res, next) => {
         return res.status(400).send({errors: 'Missing email and password fields'});
     }
 };
+
 const bcrypt = require('bcrypt'); 
 exports.isPasswordAndUserMatch = (req, res, next) => {
     IdentityModel.findByEmail(req.body.email)
@@ -36,8 +35,8 @@ exports.isPasswordAndUserMatch = (req, res, next) => {
                 if (hash === passwordFields[1]) {
                     var now = Math.floor(Date.now() / 1000);
                     req.body = {
-                        iss: 'urn:kaaniche.xyz',
-                        aud: 'urn:'+(req.get('origin')?req.get('origin'):"kaaniche.xyz"),
+                        iss: 'urn:khirouni.xyz',
+                        aud: 'urn:'+(req.get('origin')?req.get('origin'):"khirouni.xyz"),
                         sub: user[0].email,
                         name: user[0].firstName + ' ' + user[0].lastName,
                         userId: user[0]._id,

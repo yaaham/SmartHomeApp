@@ -1,22 +1,18 @@
 {
-  "name": "rest-api-tutorial",
+  "name": "smarthomeapp",
   "version": "1.0.0",
-  "description": "This tutorial is intended for `SysTel`'s & `AIM`'s students at `Sup'Com` Engineering School  and `IoT`'s students at National Engineering School of Tunis: `ENIT`.",
+  "description": "Smart Home",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node --tls-cipher-list=ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384 main.js"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://medbecha.kaaniche.xyz/t-iot-tutorial/nodejs.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://medbecha.kaaniche.xyz/t-iot-tutorial/nodejs/issues"
   },
-  "homepage": "https://medbecha.kaaniche.xyz/t-iot-tutorial/nodejs",
   "dependencies": {
     "bcrypt": "^3.0.2",
     "body-parser": "1.18.3",

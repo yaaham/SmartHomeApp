@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
 import {AuthProvider} from '../../Providers/AuthentificationProvider/AuthentificationProvider';
-
+import {WelcomePage} from '../welcome/welcome';
 /**
  * Generated class for the LoginPage page.
  *
@@ -16,29 +16,31 @@ import {AuthProvider} from '../../Providers/AuthentificationProvider/Authentific
 })
 export class LoginPage {
   public data : any ;
-  constructor(public navCtrl: NavController, public navParams: NavParams,private authprovider:AuthProvider,private events: Events ) {
-    this.data = {
-      email : '',
-      password: ''
-    }
+  resposeData: any;
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    private authprovider:AuthProvider,
+    private toastCtrl : ToastController) 
+    {
+      this.data = {
+        email : '',
+        password: ''
+      };
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
-  login(){
-    this.authprovider.login(this.data)
-      .then(
-        data => this.handleLoginSuccess(data)
-      ).catch(()=>{
-        console.log("catched auth")
-      }
-    )
-    
+  
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 2000
+    }); 
+    toast.present();
   }
-  handleLoginSuccess(data) {
-    this.events.publish('app:setUser', data);
-  }
+
   checkLoginDisable(){
     if(this.data.email === '' || this.data.password ===''){
       return false;
@@ -46,5 +48,30 @@ export class LoginPage {
     return true;
   }
 
+  login()  {
+    if (this.data.email && this.data.password) {
+      this.authprovider.post(this.data, "auth").then(
+        result => {
+          this.resposeData = result;
+          console.log(this.resposeData);
+          if (this.resposeData.accessToken) {
+            localStorage.setItem("userData", JSON.stringify(this.resposeData));
+            this.navCtrl.push(WelcomePage);
+          } else if (this.resposeData.statusText) {
+            this.presentToast("You subbmited wrong email or password");
+          } else {
+            this.presentToast("Please give valid email and password");
+          }
+        },
+        err => {
+          {
+            this.presentToast("Login failed ,Try again later !");
+          }
+        }
+      );
+    } else {
+      this.presentToast("Username and Password cannot be empty ! ");
+    }
+  }
 
 }

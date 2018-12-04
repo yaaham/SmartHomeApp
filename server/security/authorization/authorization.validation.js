@@ -12,8 +12,8 @@ exports.validJWTNeeded = (req, res, next) => {
             if (authorization[0] !== 'Bearer') {
                 return res.status(401).send();
             } else {
-                var aud = 'urn:'+(req.get('origin')?req.get('origin'):"kaaniche.xyz");
-                req.jwt = jwt.verify(authorization[1], cert, {issuer:"urn:kaaniche.xyz",audience:aud,algorithms: ['RS512']});
+                var aud = 'urn:'+(req.get('origin')?req.get('origin'):"khirouni.xyz");
+                req.jwt = jwt.verify(authorization[1], cert, {issuer:"urn:khirouni.xyz",audience:aud,algorithms: ['RS512']});
                 return next();
             }
         } catch (err) {

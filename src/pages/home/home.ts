@@ -15,7 +15,6 @@ export class HomePage {
   login(){
     this.navCtrl.push(LoginPage);
     }
-  
     signup(){
     this.navCtrl.push(SignUpPage);
     }
