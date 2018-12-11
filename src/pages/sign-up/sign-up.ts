@@ -47,20 +47,21 @@ export class SignUpPage {
     });
     toast.present();
   }
+
   SignUp(){
     if(this.data.firstName && this.data.lastName && this.data.email && this.data.password){
       if(this.data.password != this.Verification.password){
-        return Observable.throw("Please insert credentials");
+        return Observable.throw("wrong password");
       }
       this.authprovider.post(this.data, "users").then(
         result => {
           this.responseData = result;
           console.log(result);
-          if (this.responseData.accessToken) {
+          if (this.responseData) {
             console.log(this.responseData);
             localStorage.setItem("userData", JSON.stringify(this.responseData));
             this.presentToast("Successfully registered");
-            this.navCtrl.push(WelcomePage);
+            this.navCtrl.push(WelcomePage,this.responseData);
           } else if (this.responseData.err.name) {
             this.presentToast(this.responseData.err.message);
           }

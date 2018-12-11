@@ -29,14 +29,13 @@ exports.isPasswordAndUserMatch = (req, res, next) => {
                 res.status(404).send({});
             }else{
                // console.log('1111');
-                let passwordFields = user[0].password.split('@');
-                let salt = passwordFields[0];
-                let hash = bcrypt.hash(req.body.password,salt,null).toString("base64");
-                if (hash === passwordFields[1]) {
+                var passwordFields = user[0].password;
+                bcrypt.compare(req.body.password,passwordFields,function (err,result){
+                if (result == true) {
                     var now = Math.floor(Date.now() / 1000);
                     req.body = {
-                        iss: 'urn:khirouni.xyz',
-                        aud: 'urn:'+(req.get('origin')?req.get('origin'):"khirouni.xyz"),
+                        iss: 'urn:SmartHome.xyz',
+                        aud: 'urn:'+(req.get('origin')?req.get('origin'):"SmartHome.xyz"),
                         sub: user[0].email,
                         name: user[0].firstName + ' ' + user[0].lastName,
                         userId: user[0]._id,
@@ -48,8 +47,8 @@ exports.isPasswordAndUserMatch = (req, res, next) => {
                     return next();
                 } else {
                     return res.status(400).send({errors: ['Invalid e-mail or password']});
-                }
-            }
+                }});
+            } 
         });
 };
 

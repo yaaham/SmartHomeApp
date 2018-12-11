@@ -1,15 +1,15 @@
 const IdentityModel = require('../models/identity.model');
-const crypto = require('crypto');
-const bcrypt = require ('bcrypt'); 
+const bcrypt = require ('bcrypt');
 exports.insert = (req, res) => {
     let salt = bcrypt.genSaltSync(16).toString();
-    let hash = bcrypt.hash(req.body.password,salt,null).toString("base64");
-    req.body.password = salt + "@" + hash;
+    bcrypt.hash(req.body.password,salt,null).then((hash)=>{
+    req.body.password = hash;
     req.body.permissionLevel = 1;
     IdentityModel.createIdentity(req.body)
         .then((result) => {
             res.status(201).send({id: result._id});
         });
+    });
 };
 
 exports.list = (req, res) => {

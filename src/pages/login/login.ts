@@ -56,7 +56,7 @@ export class LoginPage {
           console.log(this.resposeData);
           if (this.resposeData.accessToken) {
             localStorage.setItem("userData", JSON.stringify(this.resposeData));
-            this.navCtrl.push(WelcomePage);
+            this.navCtrl.push(WelcomePage,this.resposeData);
           } else if (this.resposeData.statusText) {
             this.presentToast("You subbmited wrong email or password");
           } else {
