@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 
 const SecurityRouter = require('./security/routes.config');
 const IdentityRouter = require('./identity/routes.config');
+const AlarmeRouter = require('./Alarme/route');
 
 config.initRefreshSecret();
 
@@ -38,6 +39,7 @@ main.use(function (req, res, next) {
 main.use(bodyParser.json());
 SecurityRouter.routesConfig(main);
 IdentityRouter.routesConfig(main);
+AlarmeRouter.routesConfig(main);
 
 tls.createServer(options, main).listen(config.port, (error) => {
         if (error) {

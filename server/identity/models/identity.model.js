@@ -7,7 +7,12 @@ const identiySchema = new Schema({
     lastName: String,
     email: String,
     password: String,
-    permissionLevel: Number
+    lat:{type:Number},
+    lon:{type:Number},
+    rooms: [{name: String,temperature: Number, humidite: Number, lampe: Number, climatiseur: Number, alumauto: String, climaauto:String, alumlocation: String,climalocation:String}],
+    permissionLevel: Number,
+    porte : Number ,
+    presence : Number
 });
 
 identiySchema.virtual('id').get(function () {

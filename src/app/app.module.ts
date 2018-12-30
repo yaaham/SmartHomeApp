@@ -9,7 +9,9 @@ import {LoginPage} from '../pages/login/login';
 import {SignUpPage} from '../pages/sign-up/sign-up';
 import {WelcomePage} from '../pages/welcome/welcome';
 import{AuthProvider} from '../Providers/AuthentificationProvider/AuthentificationProvider';
-import { HttpModule } from '@angular/http';
+import { HttpModule } from '@angular/http'
+import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@ionic-native/geolocation';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -21,7 +23,8 @@ import { HttpModule } from '@angular/http';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
+    HttpModule,
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -35,6 +38,7 @@ import { HttpModule } from '@angular/http';
     StatusBar,
     SplashScreen,
     AuthProvider,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

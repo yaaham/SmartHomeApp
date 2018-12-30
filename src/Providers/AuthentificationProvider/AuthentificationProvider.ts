@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http,Headers } from '@angular/http';
-import { Events } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 import * as jwt_decode from "jwt-decode";
 
@@ -9,8 +8,10 @@ import * as jwt_decode from "jwt-decode";
 @Injectable()
 export class AuthProvider {
     link: any;
-    constructor(public http: Http, private events: Events) {
+    token : any ; 
+    constructor(public http: Http) {
       this.link = 'https://localhost:8443/';
+      this.token = window.localStorage.getItem('token'); 
     }
     post(credentials, type){
       return new Promise((resolve, reject) =>{
@@ -29,10 +30,8 @@ export class AuthProvider {
         });
    
       });
-  
     } 
     getData(token, type){
-  
       return new Promise((resolve, reject) =>{
         let headers = new Headers();
         headers.append('Content-Type','application/json');
@@ -41,10 +40,7 @@ export class AuthProvider {
         subscribe(res =>{
           resolve(res.json());
         }, (err) =>{
-          
               reject(err);
-          
-            
         });
    
       });
@@ -58,5 +54,33 @@ export class AuthProvider {
       catch(Error){
           return null;
       }
+    }
+
+    ActivePresence(data){
+      return new Promise((resolve, reject) =>{
+          let headers = new Headers();
+          headers.append('Content-Type','application/json');
+          headers.append('Authorization','bearer '+this.token);
+      var credentials = {
+          'headers': headers, 
+          ButtonStatus : data.etat, 
+          username : data.username
+      }
+      return this.http.post(this.link+"alarmedepresence",credentials).subscribe(res=>{
+          resolve(res.json());
+      },(err)=>{
+              if(err.statusText=="Unauthorized") {
+                  resolve(err);
+                }
+                  else {
+                    reject(err);
+                  }
+          
+      });
+  });
+}
+
+    logout(){
+      return true;
     }
   }

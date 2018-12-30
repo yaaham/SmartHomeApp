@@ -1,4 +1,5 @@
 const IdentityProvider = require('./controllers/identity.provider');
+const IdentityChecker = require('./authentication/identity.checker');
 const AuthorizationValidation = require('../security/authorization/authorization.validation');
 const AuthorizationPermission = require('../security/authorization/authorization.permission');
 const config = require('../env.config');
@@ -9,7 +10,11 @@ const Surfer = config.permissionLevels.Surfer;
 
 exports.routesConfig = function (app) {
     app.post('/users', [
-        IdentityProvider.insert
+        IdentityProvider.insert,
+        IdentityChecker.hasAuthValidFields,
+        IdentityChecker.isPasswordAndUserMatch,
+        Authenticator.login
+
     ]);
     app.get('/users', [
         AuthorizationValidation.validJWTNeeded,
@@ -22,7 +27,6 @@ exports.routesConfig = function (app) {
         AuthorizationPermission.onlySameUserOrAdminCanDoThisAction,
         IdentityProvider.getById
     ]);
-
     /**
      * In a PUT request, the enclosed entity is considered to be
      * a modified version of the resource stored on the origin server,

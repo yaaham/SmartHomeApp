@@ -26,12 +26,15 @@ exports.isPasswordAndUserMatch = (req, res, next) => {
     IdentityModel.findByEmail(req.body.email)
         .then((user)=>{
             if(!user[0]){
-                res.status(404).send({});
+                res.status(3000).send({});
             }else{
-               // console.log('1111');
+                console.log('1111');
                 var passwordFields = user[0].password;
+                console.log(passwordFields);
                 bcrypt.compare(req.body.password,passwordFields,function (err,result){
+                    console.log(result);
                 if (result == true) {
+                    console.log('1111222');
                     var now = Math.floor(Date.now() / 1000);
                     req.body = {
                         iss: 'urn:SmartHome.xyz',
@@ -42,11 +45,16 @@ exports.isPasswordAndUserMatch = (req, res, next) => {
                         roles: user[0].permissionLevel,
                         jti: uuidv4(),
                         iat: now,
+                        lat : user[0].lat,
+                        lon : user[0].long,
+                        rooms : user[0].rooms,
+                        porte : user[0].porte ,
+                        presence :user[0].presence,
                         exp: now+validityTime
                     };
                     return next();
                 } else {
-                    return res.status(400).send({errors: ['Invalid e-mail or password']});
+                    return res.status(404).send({errors: ['Invalid e-mail or password']});
                 }});
             } 
         });
@@ -56,7 +64,7 @@ exports.isUserStillExistsWithSamePrivileges = (req, res, next) => {
     IdentityModel.findByEmail(req.body.sub)
         .then((user)=>{
             if(!user[0]){
-                res.status(404).send({});
+                res.status(1000).send({});
             }
             req.body.roles = user[0].permissionLevel;
             return next();

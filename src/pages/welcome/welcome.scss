@@ -1,3 +1,49 @@
 page-welcome {
-
+    .header-title{
+        font-size: 18px; 
+        text-align: center; 
+    }
+    .mainWelcome{
+        background-image: url('../../assets/graphique/background.jpg');
+        background-position: center; 
+        background-repeat: no-repeat; 
+        background-size: cover;
+        .textCol{
+            color: aliceblue;
+        }
+        .FirstRow{
+            .textCol{
+                color: aliceblue;
+            }
+            margin-top: -15px;
+            .Alarme{
+                margin-top: -20px;
+                .ButtonStyle{
+                    width: 100px
+                }
+                .Génnerale{
+                    margin-top: -20px;
+                    .ButtonStyle{
+                        width: 100px
+                    }
+                }
+            }
+            .AddRoom{
+                margin-top: -10px;
+            }
+            .roomstyle{
+                margin-top: -5px;
+                .H5Style{
+                    text-align: left;
+                }
+                .update{
+                    text-align: right;
+                    .ButtonStyle{
+                        width : 100px;
+                    }
+                }
+            }
+        }
+        
+    }
 }

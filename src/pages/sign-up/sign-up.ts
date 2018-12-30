@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
 import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
 import {AuthProvider} from '../../Providers/AuthentificationProvider/AuthentificationProvider';
 import {WelcomePage} from '../welcome/welcome';
@@ -51,17 +50,18 @@ export class SignUpPage {
   SignUp(){
     if(this.data.firstName && this.data.lastName && this.data.email && this.data.password){
       if(this.data.password != this.Verification.password){
-        return Observable.throw("wrong password");
+        console.log('verifie your password');
       }
+      else{
       this.authprovider.post(this.data, "users").then(
         result => {
           this.responseData = result;
           console.log(result);
           if (this.responseData) {
             console.log(this.responseData);
-            localStorage.setItem("userData", JSON.stringify(this.responseData));
+            localStorage.setItem("token", JSON.stringify(this.responseData));
             this.presentToast("Successfully registered");
-            this.navCtrl.push(WelcomePage,this.responseData);
+            this.navCtrl.setRoot(WelcomePage,this.responseData);
           } else if (this.responseData.err.name) {
             this.presentToast(this.responseData.err.message);
           }
@@ -71,11 +71,10 @@ export class SignUpPage {
             this.presentToast("Register failed ,Try again later!");
           }
         }
-      );
+      );}
     } else {
       this.presentToast("Please Write Valid Information");
           }
-
     }
 }
 

@@ -12,33 +12,43 @@
 
 </ion-header>
 <ion-content padding class = "MainSignup">
-    <ion-grid center test-center>
+    <ion-grid center test-center class="Grid">
         <ion-col class = "SignUp">
             <ion-row center text-center>
-                <ion-item no-lines>
+              <ion-item no-lines>
                   <ion-input type="text" placeholder="First Name" [(ngModel)]="data.firstName"></ion-input>
-                </ion-item>
+              </ion-item>
             </ion-row>
+
+
             <ion-row center text-center>
                 <ion-item no-lines>
                   <ion-input type="text" placeholder="Last Name" [(ngModel)]="data.lastName"></ion-input>
                 </ion-item>
                </ion-row>
-              <ion-row center text-center >
+              
+              
+               <ion-row center text-center >
               <ion-item no-lines>
                 <ion-input type="email" placeholder="Email Input" [(ngModel)]= "data.email"></ion-input>
               </ion-item>
             </ion-row>
+            
+            
             <ion-row center text-center>
               <ion-item no-lines>
                 <ion-input type="password" placeholder="Password Input" [(ngModel)]="data.password"></ion-input>
               </ion-item>
             </ion-row>
+            
+            
             <ion-row center text-center>
               <ion-item no-lines>
                 <ion-input type="password" placeholder="Password Verification" [(ngModel)]="Verification.password"></ion-input>
               </ion-item>
             </ion-row>
+            
+            
             <ion-row center text-center>
               <button ion-button full color="lightText" (click)="SignUp()" >SignUp</button>
             </ion-row>

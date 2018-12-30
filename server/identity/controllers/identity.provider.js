@@ -4,12 +4,16 @@ exports.insert = (req, res) => {
     let salt = bcrypt.genSaltSync(16).toString();
     bcrypt.hash(req.body.password,salt,null).then((hash)=>{
     req.body.password = hash;
+    console.log(hash);
     req.body.permissionLevel = 1;
+    req.body.porte = 0;
+    req.body.presence = 0;
     IdentityModel.createIdentity(req.body)
         .then((result) => {
             res.status(201).send({id: result._id});
         });
     });
+
 };
 
 exports.list = (req, res) => {
@@ -28,7 +32,7 @@ exports.list = (req, res) => {
 };
 
 exports.getById = (req, res) => {
-    IdentityModel.findById(req.params.userId)
+    IdentityModel.ById(req.params.userId)
         .then((result) => {
             res.status(200).send(result);
         });
