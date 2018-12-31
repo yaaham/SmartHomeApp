@@ -1,9 +1,7 @@
 const  mqtt = require('mqtt');
 const User = require('../identity/models/identity.model');
 exports.gen=(req,res)=>{
-        var client =mqtt.connect('mqtt://127.0.0.1:1880'); 
-        client.on('connect',function(){
-            
+        var client =mqtt.connect('mqtt://127.0.0.1'); 
             User.findByEmail(req.body.email).then(user=>{
                     for(var  i=1 ;i<user.rooms.length;i++){
                     if(req.body.ButtonStatus == true){
@@ -16,14 +14,11 @@ exports.gen=(req,res)=>{
                         user.rooms[i].climatiseur = 0; 
                     }
                 }  
-                
                 user.save(); });
-        });
 }
 
 exports.loc=(req,res)=>{
-    var client =mqtt.connect('mqtt://127.0.0.1:1880'); 
-    client.on('connect',function(){
+    var client =mqtt.connect('mqtt://127.0.0.1'); 
         
         User.findByEmail(req.body.email).then(user=>{ 
                 for(var  i=1 ;i<user.rooms.length;i++){
@@ -40,6 +35,5 @@ exports.loc=(req,res)=>{
             }
             } 
             user.save(); });
-    });
 }
 

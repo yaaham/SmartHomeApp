@@ -1,9 +1,7 @@
 const  mqtt = require('mqtt');
 const User = require('../identity/models/identity.model');
 exports.presence=(req,res)=>{
-        console.log("heyy you !!");
-        var client =mqtt.connect('mqtt://127.0.0.1:1880'); 
-        client.on('connect',function(){
+        var client =mqtt.connect('mqtt://127.0.0.1'); 
             
             User.findByEmail(req.body.email).then(user=>{
                     if(req.body.ButtonStatus == true){
@@ -18,13 +16,13 @@ exports.presence=(req,res)=>{
                     
                 
                 user.save(); });
-        });
+        
 }
 
 exports.porte = (req,res)=>{
-var client =mqtt.connect('mqtt://127.0.0.1:1880'); 
-client.on('connect',function(){
-            
+    
+var client =mqtt.connect('mqtt://127.0.0.1'); 
+    console.log("salam");
     User.findByEmail( req.body.email).then(user=>{
             if(req.body.ButtonStatus == true){
                 client.subscribe(req.body.email + '/alarme/porte'); 
@@ -39,6 +37,5 @@ client.on('connect',function(){
             }
         
          });
-});
 }
 
