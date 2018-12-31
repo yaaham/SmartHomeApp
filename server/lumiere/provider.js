@@ -21,6 +21,7 @@ exports.gen=(req,res)=>{
 }
 
 exports.loc=(req,res)=>{
+    console.log("heyy");
     var client =mqtt.connect('mqtt://127.0.0.1'); 
         
         User.findByEmail(req.body.email).then(user=>{

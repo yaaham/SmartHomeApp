@@ -7,12 +7,22 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>addroom</ion-title>
+    <ion-title>AddRoom</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class = "MainAddRoom">
+    <ion-col class = "AddRoom">
+        <ion-row center text-center>
+            <ion-item no-lines>
+              <ion-input type="text" placeholder="Room Nmae" [(ngModel)]="data.roomname"></ion-input>
+            </ion-item>
+           </ion-row>
+           <ion-row center text-center>
+              <button ion-button full color="lightText" (click)="addroom()" >Add</button>
+            </ion-row>
 
+    </ion-col>
 </ion-content>

@@ -6,4 +6,7 @@ exports.routesConfig=function(app){
     app.post('/getroom',[
         RoomProviders.getrooms
     ]);
+    app.post('/addroom',[
+        RoomProviders.add
+    ])
 }

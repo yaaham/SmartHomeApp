@@ -6,6 +6,7 @@ import { AuthProvider } from '../../Providers/AuthentificationProvider/Authentif
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { HomePage } from '../home/home'; 
 import {  AlertController, Platform } from 'ionic-angular';
+import { AddroomPage } from '../addroom/addroom';
 //import { AlarmeProvider } from '../../Providers/OtherProviders/AlarmeProvider';
 
 /**
@@ -50,7 +51,7 @@ export class WelcomePage {
                   this.getuserposition();
                   this.auth.Active({email : this.name},"getroom").then(data => {
                     console.log( data);
-                    var rom= data.result;
+                    var rom= data.user.rooms;
                     var roomsf=[];
                     if(data.result!== "null"){
                     this.userlongitude=data.user.lon;
@@ -65,6 +66,7 @@ export class WelcomePage {
                     }else{
                     this.rooms=[];
                     }
+                    console.log(this.rooms);
                     this.porte= data.porte;
                     this.presence= data.user.presence;
                     
@@ -97,6 +99,9 @@ export class WelcomePage {
   });
   }
 
+  pageroom(){
+    this.navCtrl.setRoot(AddroomPage);
+  }
 
   activedesactive(type){
     var data={ ButtonStatus:type , email:this.name }; 

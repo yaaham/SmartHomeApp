@@ -6,7 +6,7 @@ exports.routesConfig=function(app){
     app.post('/lumgen',[
         LumProviders.gen
     ]);
-    app.post('lamploc',[
+    app.post('/lamploc',[
     LumProviders.loc
     ]);
 }

@@ -9,6 +9,7 @@ import {LoginPage} from '../pages/login/login';
 import {SignUpPage} from '../pages/sign-up/sign-up';
 import {WelcomePage} from '../pages/welcome/welcome';
 import{AuthProvider} from '../Providers/AuthentificationProvider/AuthentificationProvider';
+import{AddroomPage} from '../pages/addroom/addroom';
 import { HttpModule } from '@angular/http'
 import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@ionic-native/geolocation';
 
@@ -18,7 +19,8 @@ import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@io
     HomePage,
     SignUpPage,
     WelcomePage,
-    LoginPage
+    LoginPage,
+    AddroomPage
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@io
     HomePage,
     SignUpPage,
     WelcomePage,
-    LoginPage
+    LoginPage,
+    AddroomPage
   ],
   providers: [
     StatusBar,
