@@ -24,14 +24,14 @@
       <h2 class = "textCol" >Alarme</h2>
       <ion-grid> 
         <ion-row class = "FirstRow">
-            <ion-col class = "textCol">
+            <h2 class = "textCol">
                 Alarme Porte D'Entrée
-            </ion-col >
+            </h2 >
             <ion-col class="Alarme">
-              <ion-item *ngIf="present == 0">
+              <ion-item *ngIf="presence == 0">
                   <button class ="ButtonStyle" ion-button full color="secondary" (click)="activedesactive(true)">Activer</button>
               </ion-item>
-                <ion-item *ngIf="present == 1">
+                <ion-item *ngIf="presence  == 1">
                     <button class ="ButtonStyle" ion-button full color="danger"(click)="activedesactive(false)"  >Desactiver</button>
                 </ion-item>
             </ion-col>
@@ -39,9 +39,9 @@
       </ion-grid>
       <ion-grid>
         <ion-row class ="FirstRow">
-          <ion-col class = "textCol">
+          <h2 class = "textCol">
             Alarme De Movement
-          </ion-col> 
+          </h2> 
           <ion-col class=Alarme>
               <ion-item *ngIf="porte==0">
                 <button class = "ButtonStyle" ion-button full color="secondary" (click)= "acitverdesactivemove(true)">Activer</button>

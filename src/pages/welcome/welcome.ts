@@ -66,7 +66,7 @@ export class WelcomePage {
                     this.rooms=[];
                     }
                     this.porte= data.porte;
-                    this.presence= data.presence;
+                    this.presence= data.user.presence;
                     
                   });
               
@@ -75,7 +75,7 @@ export class WelcomePage {
                 });
               
               
-                /*Observable.interval(30000).subscribe(x => { 
+                Observable.interval(30000).subscribe(x => { 
                if(this.distance <10){
                                     this.auth.Active ({ ButtonStatus:true , email:this.name } , "gen").then(data =>{
                                     })
@@ -83,7 +83,7 @@ export class WelcomePage {
                                     this.auth.Active({ ButtonStatus:false , email:this.name } , "gen").then(data =>{
                                     })
                                  } 
-                 })*/
+                 })
   }
   
   getuserposition(){

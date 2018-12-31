@@ -24,8 +24,6 @@ exports.loc=(req,res)=>{
     var client =mqtt.connect('mqtt://127.0.0.1'); 
         
         User.findByEmail(req.body.email).then(user=>{
-            
-            
                 for(var  i=1 ;i<user.rooms.length;i++){
                 if(req.body.roomname === user.rooms[i].name){
                     if(req.body.ButtonStatus == true){
