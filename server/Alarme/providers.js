@@ -1,8 +1,8 @@
 const  mqtt = require('mqtt');
 const User = require('../identity/models/identity.model');
 exports.presence=(req,res)=>{
+    console.log("heyyyy");
         var client =mqtt.connect('mqtt://127.0.0.1'); 
-            
             User.findByEmail(req.body.email).then(user=>{
                     if(req.body.ButtonStatus == true){
                         client.subscribe(req.body.email + '/alarme/presence'); 

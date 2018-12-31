@@ -101,7 +101,7 @@ export class WelcomePage {
   activedesactive(type){
     var data={ ButtonStatus:type , email:this.name }; 
     console.log(type);
-    this.auth.Active(data,"alarmepresence").then((res)=>{
+    this.auth.Active(data,"alarmedepresence").then((res)=>{
     });
   }
 

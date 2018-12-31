@@ -24,30 +24,32 @@ const bcrypt = require('bcrypt');
 exports.isPasswordAndUserMatch = (req, res, next) => {
     IdentityModel.findByEmail(req.body.email)
         .then((user)=>{
-            if(!user[0]){
+            console.log(user);
+            if(!user){
                 res.status(3000).send({});
             }else{
-                var passwordFields = user[0].password;
-                console.log(passwordFields);
+                var passwordFields = user.password;
+                
                 bcrypt.compare(req.body.password,passwordFields,function (err,result){
-                    console.log(result);
+                    
                 if (result == true) {
-                    console.log('1111222');
+                    
                     var now = Math.floor(Date.now() / 1000);
+                    
                     req.body = {
                         iss: 'urn:SmartHome.xyz',
                         aud: 'urn:'+(req.get('origin')?req.get('origin'):"SmartHome.xyz"),
-                        sub: user[0].email,
-                        name: user[0].firstName + ' ' + user[0].lastName,
-                        userId: user[0]._id,
-                        roles: user[0].permissionLevel,
+                        sub: user.email,
+                        name: user.firstName + ' ' + user.lastName,
+                        userId: user._id,
+                        roles: user.permissionLevel,
                         jti: uuidv4(),
                         iat: now,
-                        lat : user[0].lat,
-                        lon : user[0].lon,
-                        rooms : user[0].rooms,
-                        porte : user[0].porte ,
-                        presence :user[0].presence,
+                        lat : user.lat,
+                        lon : user.lon,
+                        rooms : user.rooms,
+                        porte : user.porte ,
+                        presence :user.presence,
                         exp: now+validityTime
                     };
                     return next();
