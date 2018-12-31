@@ -17,9 +17,9 @@ exports.validJWTNeeded = (req, res, next) => {
                 return res.status(401).send();
             } else {
                 console.log("Verifie");
-                var aud = 'urn:'+(req.get('origin')?req.get('origin'):"khirouni.xyz");
+                var aud = 'urn:'+(req.get('origin')?req.get('origin'):"boujkhirou.xyz");
                 console.log("Verifie");
-                req.jwt = jwt.verify(authorization[1], cert, {issuer:"urn:khirouni.xyz",audience:aud,algorithms: ['RS512']});
+                req.jwt = jwt.verify(authorization[1], cert, {issuer:"urn:boujkhirou.xyz",audience:aud,algorithms: ['RS512']});
                 console.log("Verifie");
                 return next();
             }
