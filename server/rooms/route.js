@@ -1,12 +1,9 @@
 const config = require('../env.config');
 const TokenValidaation = require('../security/authorization/authorization.validation');
-const AlarmeProviders = require('./providers'); 
+const RoomProviders = require('./providers'); 
 
 exports.routesConfig=function(app){
-    app.post('/alarmedepresence',[
-        AlarmeProviders.presence
+    app.post('/getroom',[
+        RoomProviders.getrooms
     ]);
-    app.post('/porte',[
-    AlarmeProviders.porte
-    ])
 }

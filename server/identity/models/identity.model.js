@@ -7,8 +7,8 @@ const identiySchema = new Schema({
     lastName: String,
     email: String,
     password: String,
-    lat:{type:Number},
-    lon:{type:Number},
+    lat:Number,
+    lon:Number,
     rooms: [{name: String,temperature: Number, humidite: Number, lampe: Number, climatiseur: Number, alumauto: String, climaauto:String, alumlocation: String,climalocation:String}],
     permissionLevel: Number,
     porte : Number ,
@@ -32,7 +32,7 @@ const Identity = mongoose.model('Users', identiySchema);
 
 
 exports.findByEmail = (email) => {
-    return Identity.find({email: email});
+    return Identity.findOne({email: email});
 };
 exports.findById = (id) => {
     return Identity.findById(id)
@@ -102,4 +102,3 @@ exports.removeById = (userId) => {
         });
     });
 };
-

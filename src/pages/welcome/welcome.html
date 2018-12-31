@@ -20,7 +20,7 @@
 <ion-content padding class = "mainWelcome">
   <ion-slides pager>
 
-    <ion-slide *ngIf="home == 1">
+    <ion-slide >
       <h2 class = "textCol" >Alarme</h2>
       <ion-grid> 
         <ion-row class = "FirstRow">
@@ -29,10 +29,10 @@
             </ion-col >
             <ion-col class="Alarme">
               <ion-item *ngIf="present == 0">
-                  <button class ="ButtonStyle" ion-button full color="secondary" (click)="activepresence(name)">Activer</button>
+                  <button class ="ButtonStyle" ion-button full color="secondary" (click)="activedesactive(true)">Activer</button>
               </ion-item>
                 <ion-item *ngIf="present == 1">
-                    <button class ="ButtonStyle" ion-button full color="danger"(click)="desactivepresence(name)"  >Desactiver</button>
+                    <button class ="ButtonStyle" ion-button full color="danger"(click)="activedesactive(false)"  >Desactiver</button>
                 </ion-item>
             </ion-col>
         </ion-row>
@@ -44,10 +44,10 @@
           </ion-col> 
           <ion-col class=Alarme>
               <ion-item *ngIf="porte==0">
-                <button class = "ButtonStyle" ion-button full color="secondary">Activer</button>
+                <button class = "ButtonStyle" ion-button full color="secondary" (click)= "acitverdesactivemove(true)">Activer</button>
               </ion-item> 
               <ion-item *ngIf = "porte == 1">
-                <button class ="ButtonStyle" ion-button full color="danger">Desactiver</button>
+                <button class ="ButtonStyle" ion-button full color="danger" (click)="acitverdesactivemove(false)">Desactiver</button>
               </ion-item>  
           </ion-col>
         </ion-row>
@@ -57,12 +57,12 @@
           <ion-row class ="FirstRow">
             <ion-col class = "Génnerale">
               <ion-item>
-                  <button class ="ButtonStyle" ion-button full color="secondary"  (click)="active">Activer</button>
+                  <button class ="ButtonStyle" ion-button full color="secondary"  (click)="dessactiverlumgenerale(true)">Activer</button>
               </ion-item>
             </ion-col>
             <ion-col class = "Génnerale">
                 <ion-item>
-                    <button class ="ButtonStyle" ion-button full color="danger"  (click)="active">Désactiver</button>
+                    <button class ="ButtonStyle" ion-button full color="danger"  (click)="dessactiverlumgenerale(false)">Désactiver</button>
                 </ion-item>
               </ion-col>
           </ion-row>
@@ -72,12 +72,12 @@
           <ion-row class ="FirstRow">
             <ion-col class = "Génnerale">
               <ion-item>
-                  <button class ="ButtonStyle" ion-button full color="secondary" (click)="active">Activer</button>
+                  <button class ="ButtonStyle" ion-button full color="secondary" (click)="dessactiverclimgenerale(true)">Activer</button>
               </ion-item>
             </ion-col>
             <ion-col class = "Génnerale">
                 <ion-item>
-                    <button class ="ButtonStyle" ion-button full color="danger"  (click)="active">Désactiver</button>
+                    <button class ="ButtonStyle" ion-button full color="danger"  (click)="dessactiverclimgenerale(false)">Désactiver</button>
                 </ion-item>
               </ion-col>
           </ion-row>
@@ -136,40 +136,6 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-      <h1 class = "textCol" >Mode Automatique</h1>
-      <ion-grid>
-        <ion-row class="roomstyle">
-          <ion-col>
-             <h5 class=" H5Style ">Lumiére</h5>
-          </ion-col >
-          <ion-col col-3> </ion-col>
-          <ion-col class="update">
-            <ion-item *ngIf="room.alumauto=='false'">
-                <button class="ButtonStyle" ion-button full color="secondary" (click)="activerlampeauto(room.name, name)">activer</button>
-            </ion-item>
-            <ion-item *ngIf="room.alumauto=='true'">
-                <button class="ButtonStyle" ion-button full color="danger" (click)="deactiverlampeauto(room.name, name)" >désactiver</button>
-            </ion-item>
-          </ion-col>
-          </ion-row>
-        </ion-grid>
-  
-        <ion-grid>
-          <ion-row class = "roomstyle">
-            <ion-col >
-              <h5 class=" H5Style">Climatiseur</h5>
-            </ion-col >
-            <ion-col col-3> </ion-col>
-            <ion-col class="update">
-              <ion-item *ngIf="room.climaauto=='false'">
-                <button class="ButtonStyle" ion-button full color="secondary"  (click)="activerclimaauto(room.name, name)">activer </button>
-              </ion-item>
-              <ion-item *ngIf="room.climaauto=='true'">
-                <button class="ButtonStyle" ion-button full color="danger"   (click)="deactiverclimaauto(room.name, name)">désactiver </button>
-              </ion-item>
-              </ion-col>
-          </ion-row>
-        </ion-grid>
         <h2 class="textCol">Mode Localisation</h2>
         <ion-grid>
             <ion-row class="roomstyle">
@@ -179,10 +145,10 @@
                 <ion-col col-3> </ion-col>
                 <ion-col class="update">
                     <ion-item *ngIf="room.alumlocation=='false'">
-                        <button class="ButtonStyle" ion-button full color="secondary"  (click)="activerlampelocalisation(room.name, name)" >activer</button>
+                        <button class="ButtonStyle" ion-button full color="secondary"  (click)="activerlampelocalisation(room.name,true)" >activer</button>
                     </ion-item>
                     <ion-item *ngIf="room.alumlocation=='true'">
-                        <button class="ButtonStyle" ion-button full color="danger"   (click)="deactiverlampelocalisation(room.name, name)"  >désactiver</button>
+                        <button class="ButtonStyle" ion-button full color="danger"   (click)="activerlampelocalisation(room.name, false)"  >désactiver</button>
                     </ion-item>
                 </ion-col>
               </ion-row>
@@ -195,10 +161,10 @@
               <ion-col col-3> </ion-col>
               <ion-col>
                 <ion-item *ngIf="room.climalocation=='false'">
-                  <button class = "ButtonStyle" ion-button full color="secondary" (click)="activerclimalocalisation(room.name, name)" >activer </button>
+                  <button class = "ButtonStyle" ion-button full color="secondary" (click)="activerclimalocalisation(room.name, true)" >activer </button>
                 </ion-item>
                 <ion-item *ngIf="room.climalocation=='true'">
-                  <button class = "ButtonStyle" ion-button full color="danger" (click)="deactiverclimalocalisation(room.name, name)"  >désactiver </button>
+                  <button class = "ButtonStyle" ion-button full color="danger" (click)="activerclimalocalisation(room.name, false)"  >désactiver </button>
                 </ion-item>
               </ion-col> 
             </ion-row>

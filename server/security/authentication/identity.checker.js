@@ -1,7 +1,6 @@
 const IdentityModel = require('../../identity/models/identity.model');
 const uuidv4 = require('uuid/v4');
 const validityTime = require('../../env.config.js').jwtValidityTimeInSeconds;
-
 exports.hasAuthValidFields = (req, res, next) => {
     let errors = [];
     if (req.body) {
@@ -28,7 +27,6 @@ exports.isPasswordAndUserMatch = (req, res, next) => {
             if(!user[0]){
                 res.status(3000).send({});
             }else{
-                console.log('1111');
                 var passwordFields = user[0].password;
                 console.log(passwordFields);
                 bcrypt.compare(req.body.password,passwordFields,function (err,result){
@@ -46,7 +44,7 @@ exports.isPasswordAndUserMatch = (req, res, next) => {
                         jti: uuidv4(),
                         iat: now,
                         lat : user[0].lat,
-                        lon : user[0].long,
+                        lon : user[0].lon,
                         rooms : user[0].rooms,
                         porte : user[0].porte ,
                         presence :user[0].presence,

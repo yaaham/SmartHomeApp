@@ -7,6 +7,9 @@ const bodyParser = require('body-parser');
 const SecurityRouter = require('./security/routes.config');
 const IdentityRouter = require('./identity/routes.config');
 const AlarmeRouter = require('./Alarme/route');
+const LumRouter = require ('./lumiere/route');
+const Climrouter=require('./climatiseur/route');
+const RoomRouter=require('./rooms/route');
 
 config.initRefreshSecret();
 
@@ -40,6 +43,9 @@ main.use(bodyParser.json());
 SecurityRouter.routesConfig(main);
 IdentityRouter.routesConfig(main);
 AlarmeRouter.routesConfig(main);
+LumRouter.routesConfig(main);
+Climrouter.routesConfig(main);
+RoomRouter.routesConfig(main);
 
 tls.createServer(options, main).listen(config.port, (error) => {
         if (error) {

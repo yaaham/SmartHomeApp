@@ -8,10 +8,12 @@ import * as jwt_decode from "jwt-decode";
 @Injectable()
 export class AuthProvider {
     link: any;
+    data :any;
     token : any ; 
     constructor(public http: Http) {
       this.link = 'https://localhost:8443/';
-      this.token = window.localStorage.getItem('token'); 
+      this.token = localStorage.getItem('accessToken'); 
+     // this.token = this.data.accessToken;
     }
     post(credentials, type){
       return new Promise((resolve, reject) =>{
@@ -35,7 +37,7 @@ export class AuthProvider {
       return new Promise((resolve, reject) =>{
         let headers = new Headers();
         headers.append('Content-Type','application/json');
-        headers.append('Authorization','bearer '+token);
+        headers.append('Authorization','Bearer '+token);
           this.http.get(this.link+type, {headers: headers}).
         subscribe(res =>{
           resolve(res.json());
@@ -44,7 +46,6 @@ export class AuthProvider {
         });
    
       });
-  
     }
   
     getDecodedAccessToken(token: string): any {
@@ -56,18 +57,14 @@ export class AuthProvider {
       }
     }
 
-    ActivePresence(data){
+    Active(credentials,type){
       return new Promise((resolve, reject) =>{
           let headers = new Headers();
           headers.append('Content-Type','application/json');
-          headers.append('Authorization','bearer '+this.token);
-      var credentials = {
-          'headers': headers, 
-          ButtonStatus : data.etat, 
-          username : data.username
-      }
-      return this.http.post(this.link+"alarmedepresence",credentials).subscribe(res=>{
-          resolve(res.json());
+          headers.append('authorization','Bearer '+ this.token);
+          
+          this.http.post(this.link+type,JSON.stringify(credentials), {headers: headers}).subscribe(res=>{
+            resolve(res.json());
       },(err)=>{
               if(err.statusText=="Unauthorized") {
                   resolve(err);
@@ -76,9 +73,9 @@ export class AuthProvider {
                     reject(err);
                   }
           
+          });
       });
-  });
-}
+    }
 
     logout(){
       return true;

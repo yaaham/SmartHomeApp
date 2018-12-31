@@ -1,5 +1,6 @@
 const IdentityProvider = require('./controllers/identity.provider');
-const IdentityChecker = require('./authentication/identity.checker');
+const IdentityChecker = require('../security/authentication/identity.checker');
+const Authenticator = require('../security/authentication/authentication.handler');
 const AuthorizationValidation = require('../security/authorization/authorization.validation');
 const AuthorizationPermission = require('../security/authorization/authorization.permission');
 const config = require('../env.config');

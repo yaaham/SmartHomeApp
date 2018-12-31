@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@ionic-native/geolocation';
 import { IonicPage, NavController, NavParams,PopoverController} from 'ionic-angular';
 import { AuthProvider } from '../../Providers/AuthentificationProvider/AuthentificationProvider';
@@ -20,7 +21,6 @@ import {  AlertController, Platform } from 'ionic-angular';
   templateUrl: 'welcome.html',
 })
 export class WelcomePage {
-  home : number ; 
   presence : number ; 
   porte : number ;
   options : GeolocationOptions;
@@ -36,6 +36,7 @@ export class WelcomePage {
   notifyporte: any;
   notifypresence: any; 
   data : any ; 
+  distance :Number;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -43,11 +44,46 @@ export class WelcomePage {
               private geolocation : Geolocation,
               private auth : AuthProvider) {
                 this.data = localStorage.getItem("token");
-                this.porte = 1; 
-                this.home = 1;
-                this.presence = 1 ;
-                console.log(this.data.firstname);
-                console.log(this.data);
+                this.name = localStorage.getItem('email');
+                //console.log(this.data);
+                Observable.interval(4000).subscribe(x => {
+                  this.getuserposition();
+                  this.auth.Active({email : this.name},"getroom").then(data => {
+                    console.log( data);
+                    var rom= data.result;
+                    var roomsf=[];
+                    if(data.result!== "null"){
+                    this.userlongitude=data.user.lon;
+                    this.userlatitude= data.user.lat;
+                
+                    for(var i=1; i<data.result.length; i++){
+                    roomsf[i-1]= data.result[i];
+                    }
+                    this.rooms=roomsf;
+                                
+                  
+                    }else{
+                    this.rooms=[];
+                    }
+                    this.porte= data.porte;
+                    this.presence= data.presence;
+                    
+                  });
+              
+                this.distance =this.DistanceTo(this.userlatitude, this.userlongitude, this.currentlatitude, this.currentlongitude);
+                  
+                });
+              
+              
+                /*Observable.interval(30000).subscribe(x => { 
+               if(this.distance <10){
+                                    this.auth.Active ({ ButtonStatus:true , email:this.name } , "gen").then(data =>{
+                                    })
+                                 }else{
+                                    this.auth.Active({ ButtonStatus:false , email:this.name } , "gen").then(data =>{
+                                    })
+                                 } 
+                 })*/
   }
   
   getuserposition(){
@@ -62,14 +98,67 @@ export class WelcomePage {
   }
 
 
-  activepresence(name){
-    var data={ etat:true , username:name }; 
-    this.auth.ActivePresence(data);
+  activedesactive(type){
+    var data={ ButtonStatus:type , email:this.name }; 
+    console.log(type);
+    this.auth.Active(data,"alarmepresence").then((res)=>{
+    });
   }
-  desactivepresence(name){
-    var data={ etat:false , username:name }; 
-    this.auth.ActivePresence(data);
+
+  acitverdesactivemove(type){
+    var data = {ButtonStatus : type , email : this.name}; 
+    this.auth.Active(data,"porte").then((res)=>{
+
+    });
   }
+  dessactiverlumgenerale(type){
+    var data = {ButtonStatus : type ,email : this.name}; 
+    this.auth.Active(data,"lumgen").then((res)=>{
+
+    });
+  }
+  dessactiverclimgenerale(type){
+    var data = {ButtonStatus : type ,email : this.name}; 
+    this.auth.Active(data,"climgen").then((res)=>{
+
+    });
+  }
+  activerlampelocalisation(roomname ,type){
+    var data= {roomname : roomname , email : this.name , ButtonStatus : type}
+    this.auth.Active(data,"lamploc").then((res)=>{
+    });
+  }
+  activerclimalocalisation(roomname,type){
+    var data= {roomname : roomname , email : this.name , ButtonStatus : type}
+    this.auth.Active(data,"climloc").then((res)=>{
+    });
+  }
+
+  DistanceTo( lat1,  lon1,  lat2,  lon2)
+  {
+    var rlat1 = Math.PI * lat1/180;
+    var rlat2 = Math.PI * lat2/180;
+    var rlon1 = Math.PI * lon1/180;
+    var rlon2 = Math.PI * lon2/180;
+    var theta = lon1-lon2;
+    var rtheta = Math.PI * theta/180;
+    var dist = Math.sin(rlat1) * Math.sin(rlat2) + Math.cos(rlat1) * Math.cos(rlat2) * Math.cos(rtheta);
+    dist = Math.acos(dist);
+    dist = dist * 180/Math.PI;
+    dist = dist * 60 * 1.1515;
+    var  dist = dist * 1.609344 * 1000;
+    return dist;
+}
+update(roomname, name){
+  var data={ButtonStatus:this.notify, roomname: roomname,email: name};
+  this.auth.Active(data,"lamploc").then(res => {
+  })
+}
+updateclima(roomname, name){
+  var data={ButtonStatus:this.notifyclima, roomname: roomname,email: name};
+  this.auth.Active(data,"climloc").then(res => {
+  })
+}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WelcomePage');
@@ -78,6 +167,8 @@ export class WelcomePage {
   
   logout(){   
     window.localStorage.removeItem("token");
+    window.localStorage.removeItem("accesstoken");
+    window.localStorage.removeItem("email");
     this.auth.logout();
     this.navCtrl.setRoot(HomePage);
   }

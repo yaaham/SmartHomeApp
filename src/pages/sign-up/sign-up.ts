@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
 import {AuthProvider} from '../../Providers/AuthentificationProvider/AuthentificationProvider';
+import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@ionic-native/geolocation';
 import {WelcomePage} from '../welcome/welcome';
 
 /**
@@ -9,6 +10,7 @@ import {WelcomePage} from '../welcome/welcome';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
+
 @IonicPage()
 @Component({
   selector: 'page-sign-up',
@@ -17,22 +19,36 @@ import {WelcomePage} from '../welcome/welcome';
 export class SignUpPage {
   public data : any ; 
   responseData : any ;
+  options : GeolocationOptions;
   public Verification :any ;  
   constructor(
     public navCtrl: NavController,
+    private geolocation : Geolocation,
     public navParams: NavParams,
     private authprovider: AuthProvider,
     private toastCtrl: ToastController) 
     {
-      this.data={
+      this.data = {
       firstName : '', 
       lastName : '',
       email : '',
-      password : ''
+      password : '',
+      lat : '',
+      lon :''
       };
       this.Verification ={
         password : ''
       };
+  }
+  getuserposition(){
+    this.options = {
+      enableHighAccuracy : true
+  };
+  this.geolocation.getCurrentPosition(this.options).then((pos : Geoposition) => {
+  this.data.lat= pos.coords.latitude;
+  this.data.lon= pos.coords.longitude;
+  },(err : PositionError)=>{
+  });
   }
 
 
@@ -53,13 +69,15 @@ export class SignUpPage {
         console.log('verifie your password');
       }
       else{
-      this.authprovider.post(this.data, "users").then(
+        this.authprovider.post(this.data, "users").then(
         result => {
           this.responseData = result;
           console.log(result);
           if (this.responseData) {
             console.log(this.responseData);
             localStorage.setItem("token", JSON.stringify(this.responseData));
+            localStorage.setItem("accessToken",this.responseData.accessToken);
+            localStorage.setItem("email",this.responseData.email);
             this.presentToast("Successfully registered");
             this.navCtrl.setRoot(WelcomePage,this.responseData);
           } else if (this.responseData.err.name) {

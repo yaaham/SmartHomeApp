@@ -6,14 +6,21 @@ const jwt = require('jsonwebtoken'),
 const cert = fs.readFileSync('./tls/token-public-key.pem');
 
 exports.validJWTNeeded = (req, res, next) => {
+    console.log("hey you 1 ");
     if (req.headers['authorization']) {
+        
         try {
+            console.log(req.headers['authorization']);
             let authorization = req.headers['authorization'].split(' ');
+            console.log(authorization[0]);
             if (authorization[0] !== 'Bearer') {
                 return res.status(401).send();
             } else {
+                console.log("Verifie");
                 var aud = 'urn:'+(req.get('origin')?req.get('origin'):"khirouni.xyz");
+                console.log("Verifie");
                 req.jwt = jwt.verify(authorization[1], cert, {issuer:"urn:khirouni.xyz",audience:aud,algorithms: ['RS512']});
+                console.log("Verifie");
                 return next();
             }
         } catch (err) {

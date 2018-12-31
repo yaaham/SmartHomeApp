@@ -56,6 +56,9 @@ export class LoginPage {
           console.log(this.resposeData);
           if (this.resposeData.accessToken) {
             localStorage.setItem("token", JSON.stringify(this.resposeData));
+            console.log(this.resposeData.email);
+            localStorage.setItem("accessToken",this.resposeData.accessToken);
+            localStorage.setItem("email",this.resposeData.email);
             this.navCtrl.setRoot(WelcomePage,this.resposeData);
           } else if (this.resposeData.statusText) {
             this.presentToast("You subbmited wrong email or password");
@@ -70,7 +73,7 @@ export class LoginPage {
         }
       );
     } else {
-      this.presentToast("Username and Password cannot be empty ! ");
+      this.presentToast("email and Password cannot be empty ! ");
     }
   }
 
