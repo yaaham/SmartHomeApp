@@ -37,8 +37,8 @@ exports.isPasswordAndUserMatch = (req, res, next) => {
                     var now = Math.floor(Date.now() / 1000);
                     
                     req.body = {
-                        iss: 'urn:SmartHome.xyz',
-                        aud: 'urn:'+(req.get('origin')?req.get('origin'):"SmartHome.xyz"),
+                        iss: 'urn:boujkhirou.xyz',
+                        aud: 'urn:'+(req.get('origin')?req.get('origin'):"boujkhirou.xyz"),
                         sub: user.email,
                         name: user.firstName + ' ' + user.lastName,
                         userId: user._id,

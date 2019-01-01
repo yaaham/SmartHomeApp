@@ -3,10 +3,10 @@ const TokenValidaation = require('../security/authorization/authorization.valida
 const climaProviders = require('./providers'); 
 
 exports.routesConfig=function(app){
-    app.post('/climgen',[
+    app.post('/climgen',[TokenValidaation.validJWTNeeded,
         climaProviders.gen
     ]);
-    app.post('/climloc',[
+    app.post('/climloc',[TokenValidaation.validJWTNeeded,
         climaProviders.loc
     ]);
 }

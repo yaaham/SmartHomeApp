@@ -56,6 +56,27 @@ export class AuthProvider {
           return null;
       }
     }
+    
+    refreshtoken(credentials){
+      return new Promise((resolve, reject) =>{
+        let headers = new Headers();
+        headers.append('Content-Type','application/json');
+        headers.append('authorization','Bearer '+ this.token);
+        console.log(credentials.roomname);
+        this.http.post(this.link+"auth/refresh",JSON.stringify(credentials), {headers: headers}).subscribe(res=>{
+          resolve(res.json());
+    },(err)=>{
+            if(err.statusText=="Unauthorized") {
+                resolve(err);
+              }
+                else {
+                  reject(err);
+                }
+        
+        });
+    });
+
+    }
     addRoom(credentials){
       return new Promise((resolve, reject) =>{
         let headers = new Headers();

@@ -3,10 +3,10 @@ const TokenValidaation = require('../security/authorization/authorization.valida
 const AlarmeProviders = require('./providers'); 
 
 exports.routesConfig=function(app){
-    app.post('/alarmedepresence',[
+    app.post('/alarmedepresence',[TokenValidaation.validJWTNeeded,
         AlarmeProviders.presence
     ]);
-    app.post('/porte',[
+    app.post('/porte',[TokenValidaation.validJWTNeeded,
     AlarmeProviders.porte
     ])
 }

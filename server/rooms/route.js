@@ -3,10 +3,10 @@ const TokenValidaation = require('../security/authorization/authorization.valida
 const RoomProviders = require('./providers'); 
 
 exports.routesConfig=function(app){
-    app.post('/getroom',[
+    app.post('/getroom',[TokenValidaation.validJWTNeeded,
         RoomProviders.getrooms
     ]);
-    app.post('/addroom',[
+    app.post('/addroom',[TokenValidaation.validJWTNeeded,
         RoomProviders.add
     ])
 }

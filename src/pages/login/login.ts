@@ -58,6 +58,7 @@ export class LoginPage {
             localStorage.setItem("token", JSON.stringify(this.resposeData));
             console.log(this.resposeData.email);
             localStorage.setItem("accessToken",this.resposeData.accessToken);
+            localStorage.setItem("refreshtoken",this.resposeData.refreshtoken);
             localStorage.setItem("email",this.resposeData.email);
             this.navCtrl.setRoot(WelcomePage,this.resposeData);
           } else if (this.resposeData.statusText) {

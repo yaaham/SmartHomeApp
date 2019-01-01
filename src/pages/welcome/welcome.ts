@@ -86,6 +86,13 @@ export class WelcomePage {
                                     })
                                  } 
                  })
+                 Observable.interval(1000).subscribe(x=>{
+                   this.auth.refreshtoken({refreshtoken : localStorage.getItem("refreshtoken")}).then(data=>{
+                     localStorage.removeItem("accessToken");
+                     localStorage.setItem("accessToken",this.data.accessToken);
+
+                   })
+                 })
   }
   
   getuserposition(){

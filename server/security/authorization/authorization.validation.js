@@ -40,15 +40,22 @@ exports.verifyRefreshBodyField = (req, res, next) => {
 };
 
 exports.validRefreshNeeded = (req, res, next) => {
-    let b = Buffer.from(req.body.refresh_token, 'base64');
-    let decoded = b.toString().split('$');
-    let salt = decoded[0];
-    let refresh_token = decoded[1];
-    let hash = crypto.createHmac('sha512', salt).update(req.jwt.user_id + refreshSecret + req.jwt.jti).digest("base64");
-    if (hash === refresh_token) {
-        req.body = req.jwt;
-        return next();
-    } else {
-        return res.status(400).send({error: 'Invalid refresh token'});
-    }
+    let deco = req.body.refresh_token.toString().split("$");
+
+  let salt = deco[0];
+  let a = deco[1];
+  let b = Buffer.from(a, "base64");
+  let refresh_token = b.toString();
+
+  let hash = crypto
+    .createHmac("sha512", salt)
+    .update(req.jwt.userId + refreshSecret + req.jwt.jti)
+    .digest("base64");
+
+  if (hash === refresh_token) {
+    req.body = req.jwt;
+    return next();
+  } else {
+    return res.status(400).send({ error: "Invalid refresh token" });
+  }
 };
