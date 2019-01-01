@@ -63,10 +63,10 @@ exports.isPasswordAndUserMatch = (req, res, next) => {
 exports.isUserStillExistsWithSamePrivileges = (req, res, next) => {
     IdentityModel.findByEmail(req.body.sub)
         .then((user)=>{
-            if(!user[0]){
+            if(!user){
                 res.status(1000).send({});
             }
-            req.body.roles = user[0].permissionLevel;
+            req.body.roles = user.permissionLevel;
             return next();
         });
 };

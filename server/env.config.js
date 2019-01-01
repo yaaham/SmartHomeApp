@@ -12,6 +12,6 @@ module.exports = {
     },
     "actualRefreshSecret": null,
     "initRefreshSecret": function () {
-        this.actualRefreshSecret = this.refresh_secret.concat('$' + (new Date(Date.now())).toISOString());
+        this.actualRefreshSecret = this.refresh_secret.concat('@' + (new Date(Date.now())).toISOString());
     }
 };

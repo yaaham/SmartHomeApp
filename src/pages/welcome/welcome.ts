@@ -37,6 +37,7 @@ export class WelcomePage {
   notifyporte: any;
   notifypresence: any; 
   data : any ; 
+  refresh :any ;
   distance :Number;
 
   constructor(public navCtrl: NavController,
@@ -46,8 +47,9 @@ export class WelcomePage {
               private auth : AuthProvider) {
                 this.data = localStorage.getItem("token");
                 this.name = localStorage.getItem('email');
+                this.refresh =localStorage.getItem("refreshtoken");
                 //console.log(this.data);
-                Observable.interval(4000).subscribe(x => {
+                Observable.interval(15000).subscribe(x => {
                   this.getuserposition();
                   this.auth.Active({email : this.name},"getroom").then(data => {
                     console.log( data);
@@ -86,8 +88,9 @@ export class WelcomePage {
                                     })
                                  } 
                  })
-                 Observable.interval(1000).subscribe(x=>{
-                   this.auth.refreshtoken({refreshtoken : localStorage.getItem("refreshtoken")}).then(data=>{
+                 Observable.interval(1000000).subscribe(x=>{
+                   console.log(this.refresh);
+                   this.auth.refreshtoken({refresh_token :this.refresh ,email : this.name}).then(data=>{
                      localStorage.removeItem("accessToken");
                      localStorage.setItem("accessToken",this.data.accessToken);
 
@@ -178,9 +181,10 @@ updateclima(roomname, name){
 
   
   logout(){   
-    window.localStorage.removeItem("token");
-    window.localStorage.removeItem("accesstoken");
-    window.localStorage.removeItem("email");
+    localStorage.removeItem("token");
+   localStorage.removeItem("accesstoken");
+    localStorage.removeItem("refreshtoken");
+    localStorage.removeItem("email");
     this.auth.logout();
     this.navCtrl.setRoot(HomePage);
   }

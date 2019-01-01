@@ -8,12 +8,15 @@ const cert = fs.readFileSync('./tls/token-key.pem');
 exports.login = (req, res) => {
     try {
         let refreshId = req.body.userId + refreshSecret + req.body.jti;
-        let salt = crypto.randomBytes(16).toString('base64');
-        let hash = crypto.createHmac('sha512', salt).update(refreshId).digest("base64");
-        let token = jwt.sign(req.body, cert, { algorithm: 'RS512'});
+        let salt = crypto.randomBytes(16).toString("base64");
+        let hash = crypto
+          .createHmac("sha512", salt)
+          .update(refreshId)
+          .digest("base64");
+        let token = jwt.sign(req.body, cert, { algorithm: "RS512" });
         let b = Buffer.from(hash);
-        let refresh_token = salt+'$'+b.toString('base64');
-        res.status(201).send({accessToken: token, 
+        let refresh_token = salt + "@" + b.toString("base64");
+        return res.status(201).send({accessToken: token, 
             refreshToken: refresh_token ,
             email : req.body.sub ,
             id:req.body.id, 

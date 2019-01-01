@@ -77,7 +77,7 @@ export class SignUpPage {
             console.log(this.responseData);
             localStorage.setItem("token", JSON.stringify(this.responseData));
             localStorage.setItem("accessToken",this.responseData.accessToken);
-            localStorage.setItem("refreshtoken",this.responseData.refreshtoken);
+            localStorage.setItem("refreshtoken",this.responseData.refreshToken);
             localStorage.setItem("email",this.responseData.email);
             this.presentToast("Successfully registered");
             this.navCtrl.setRoot(WelcomePage,this.responseData);

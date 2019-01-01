@@ -6,21 +6,16 @@ const jwt = require('jsonwebtoken'),
 const cert = fs.readFileSync('./tls/token-public-key.pem');
 
 exports.validJWTNeeded = (req, res, next) => {
-    console.log("hey you 1 ");
     if (req.headers['authorization']) {
         
         try {
-            console.log(req.headers['authorization']);
             let authorization = req.headers['authorization'].split(' ');
-            console.log(authorization[0]);
+
             if (authorization[0] !== 'Bearer') {
                 return res.status(401).send();
             } else {
-                console.log("Verifie");
                 var aud = 'urn:'+(req.get('origin')?req.get('origin'):"boujkhirou.xyz");
-                console.log("Verifie");
                 req.jwt = jwt.verify(authorization[1], cert, {issuer:"urn:boujkhirou.xyz",audience:aud,algorithms: ['RS512']});
-                console.log("Verifie");
                 return next();
             }
         } catch (err) {
@@ -40,18 +35,17 @@ exports.verifyRefreshBodyField = (req, res, next) => {
 };
 
 exports.validRefreshNeeded = (req, res, next) => {
-    let deco = req.body.refresh_token.toString().split("$");
-
-  let salt = deco[0];
+ var deco;
+ deco = req.body.refresh_token.toString("base64").split("@");
+  var salt = deco[0];
+  console.log(salt);
   let a = deco[1];
-  let b = Buffer.from(a, "base64");
+  let b = Buffer.from(a,"base64");
   let refresh_token = b.toString();
-
   let hash = crypto
     .createHmac("sha512", salt)
     .update(req.jwt.userId + refreshSecret + req.jwt.jti)
     .digest("base64");
-
   if (hash === refresh_token) {
     req.body = req.jwt;
     return next();
