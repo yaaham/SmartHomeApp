@@ -17,9 +17,9 @@ var options= {
 exports.presence=(req,res)=>{
     console.log("heyyyy");
         var client =mqtt.connect('mqtt://m15.cloudmqtt.com' ,options); 
-        client.on('connect',function(){
             User.findByEmail(req.body.email).then(user=>{
                     if(req.body.ButtonStatus == true){
+                        console.log("1122221");
                         client.subscribe(req.body.email + '/alarme/presence'); 
                         client.publish(req.body.email + '/alarme/presence','1'); 
                         user.presence = 1; 
@@ -29,16 +29,18 @@ exports.presence=(req,res)=>{
                         user.presence = 0; 
                     }
                     
-                });
-                user.save(); });
+                user.save(); }).catch(err=>{
+                    res.status(200).send({ "success": false, msg :"failed"});
+                  });
+                
         
 }
 
 exports.porte = (req,res)=>{
     
 var client =mqtt.connect('mqtt://m15.cloudmqtt.com' ,options); 
-client.on('connect',function()
-   { User.findByEmail( req.body.email).then(user=>{
+
+    User.findByEmail( req.body.email).then(user=>{
             if(req.body.ButtonStatus == true){
                 client.subscribe(req.body.email + '/alarme/porte'); 
                 client.publish(req.body.email + '/alarme/porte','1'); 
@@ -50,7 +52,9 @@ client.on('connect',function()
                 user.porte = 0; 
                 user.save();
             }
-        });
-         });
+        }).catch(err=>{
+            res.status(200).send({ "success": false, msg :"failed"});
+          });
+         
 }
 

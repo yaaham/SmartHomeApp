@@ -3,10 +3,10 @@ const TokenValidaation = require('../security/authorization/authorization.valida
 const LumProviders = require('./provider'); 
 
 exports.routesConfig=function(app){
-    app.post('/lumgen',[TokenValidaation.validJWTNeeded,
+    app.post('/lumgen',[//TokenValidaation.validJWTNeeded,
         LumProviders.gen
     ]);
-    app.post('/lamploc',[TokenValidaation.validJWTNeeded,
+    app.post('/lamploc',[//TokenValidaation.validJWTNeeded,
     LumProviders.loc
     ]);
 }

@@ -49,18 +49,18 @@ export class WelcomePage {
                 this.name = localStorage.getItem('email');
                 this.refresh =localStorage.getItem("refreshtoken");
                 //console.log(this.data);
-                Observable.interval(15000).subscribe(x => {
+                Observable.interval(150).subscribe(x => {
                   this.getuserposition();
                   this.auth.Active({email : this.name},"getroom").then(data => {
                     console.log( data);
-                    var rom= data.user.rooms;
+                    var rom= data["user"].rooms;
                     var roomsf=[];
-                    if(data.result!== "null"){
-                    this.userlongitude=data.user.lon;
-                    this.userlatitude= data.user.lat;
+                    if(data["user"].rooms!== "null"){
+                    this.userlongitude=data["user"].lon;
+                    this.userlatitude= data["user"].lat;
                 
-                    for(var i=1; i<data.result.length; i++){
-                    roomsf[i-1]= data.result[i];
+                    for(var i=1; i<data["user"].rooms.length; i++){
+                    roomsf[i-1]= data["user"].rooms[i];
                     }
                     this.rooms=roomsf;
                                 
@@ -69,9 +69,8 @@ export class WelcomePage {
                     this.rooms=[];
                     }
                     console.log(this.rooms);
-                    this.porte= data.porte;
-                    this.presence= data.user.presence;
-                    
+                    this.porte= data['user'].porte;
+                    this.presence= data["user"].presence;
                   });
               
                 this.distance =this.DistanceTo(this.userlatitude, this.userlongitude, this.currentlatitude, this.currentlongitude);
@@ -79,7 +78,7 @@ export class WelcomePage {
                 });
               
               
-                Observable.interval(30000).subscribe(x => { 
+                /*Observable.interval(30000).subscribe(x => { 
                if(this.distance <10){
                                     this.auth.Active ({ ButtonStatus:true , email:this.name } , "gen").then(data =>{
                                     })
@@ -87,7 +86,7 @@ export class WelcomePage {
                                     this.auth.Active({ ButtonStatus:false , email:this.name } , "gen").then(data =>{
                                     })
                                  } 
-                 })
+                 })*/
                  Observable.interval(1000000).subscribe(x=>{
                    console.log(this.refresh);
                    this.auth.refreshtoken({refresh_token :this.refresh ,email : this.name}).then(data=>{

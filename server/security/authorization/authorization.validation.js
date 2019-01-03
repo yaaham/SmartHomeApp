@@ -19,6 +19,7 @@ exports.validJWTNeeded = (req, res, next) => {
                 return next();
             }
         } catch (err) {
+            console.log("hey");
             return res.status(403).send();
         }
     } else {

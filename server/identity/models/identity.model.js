@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/server',{useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27017/smarts',{useNewUrlParser: true});
 const Schema = mongoose.Schema;
 
 const identiySchema = new Schema({
@@ -42,6 +42,17 @@ exports.findById = (id) => {
             delete result.__v;
             return result;
         });
+};
+
+
+exports.patch = (email, userData) => {
+    return new Promise((resolve, reject) => {
+        Identity.findOneAndUpdate({email: email},{ $set:userData}, function (err, user) {
+            if (err) reject(err);
+            resolve(user);
+            
+        });
+    });
 };
 
 exports.createIdentity = (userData) => {

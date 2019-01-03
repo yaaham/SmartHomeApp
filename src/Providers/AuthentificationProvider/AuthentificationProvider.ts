@@ -100,12 +100,13 @@ export class AuthProvider {
 
     Active(credentials,type){
       return new Promise((resolve, reject) =>{
-          console.log("1111");
+          
           let headers = new Headers();
           headers.append('Content-Type','application/json');
           headers.append('authorization','Bearer '+ this.token);
           
           this.http.post(this.link+type,JSON.stringify(credentials), {headers: headers}).subscribe(res=>{
+            console.log("1111");
             resolve(res.json());
       },(err)=>{
               if(err.statusText=="Unauthorized") {

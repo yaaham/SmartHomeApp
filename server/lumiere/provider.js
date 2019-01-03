@@ -15,7 +15,7 @@ var options= {
 }
 exports.gen=(req,res)=>{
         var client =mqtt.connect('mqtt://m15.cloudmqtt.com' ,options); 
-        client.on('connect',function(){
+        
             User.findByEmail(req.body.email).then(user=>{
                     for(var  i=1 ;i<user.rooms.length;i++){
                     if(req.body.ButtonStatus == true){
@@ -30,13 +30,15 @@ exports.gen=(req,res)=>{
                 }  
                 
                 user.save();
-        });
-    });
+        }).catch(err=>{
+            res.status(200).send({ "success": false, msg :"failed"});
+          });
+  
 }
 
 exports.loc=(req,res)=>{
     var client =mqtt.connect('mqtt://m15.cloudmqtt.com' ,options); 
-        client.on('connect',function(){
+
         User.findByEmail(req.body.email).then(user=>{
                 for(var  i=1 ;i<user.rooms.length;i++){
                 if(req.body.roomname === user.rooms[i].name){
@@ -52,8 +54,10 @@ exports.loc=(req,res)=>{
             }
               
             }
-            user.save(); });
-    });
+            user.save(); }).catch(err=>{
+                res.status(200).send({ "success": false, msg :"failed"});
+              });
+    
 }
 
 
